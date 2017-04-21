@@ -21,11 +21,11 @@ Class File extends Package
 	/**
 	 * Add new file to Crowdin project.
 	 *
-	 * @param   Languagefile  $languagefile  The translation file object
-	 * @param   string        $type          The type.
-	 * @param   string        $branch        The branch.
+	 * @param   Languagefile $languagefile The translation file object
+	 * @param   string       $type         The type.
+	 * @param   string       $branch       The branch.
 	 *
-	 * @see https://crowdin.com/page/api/add-file
+	 * @see    https://crowdin.com/page/api/add-file
 	 * @since  1.0
 	 *
 	 * @return \Psr\Http\Message\ResponseInterface
@@ -34,19 +34,17 @@ Class File extends Package
 	{
 		$data = [];
 
-		if ('' !== $type)
-		{
+		if ('' !== $type) {
 			$data[] = [
 				'name'     => 'type',
-				'contents' => $type
+				'contents' => $type,
 			];
 		}
 
-		if ('' !== $branch)
-		{
+		if ('' !== $branch) {
 			$data[] = [
 				'name'     => 'branch',
-				'contents' => $branch
+				'contents' => $branch,
 			];
 		}
 
@@ -59,23 +57,22 @@ Class File extends Package
 	/**
 	 * Upload latest version of your localization file to Crowdin.
 	 *
-	 * @param   Languagefile  $languagefile  The translation file object
-	 * @param   string        $branch        The branch.
+	 * @param   Languagefile $languagefile The translation file object
+	 * @param   string       $branch       The branch.
 	 *
-	 * @see https://crowdin.com/page/api/update-file
+	 * @see    https://crowdin.com/page/api/update-file
 	 * @since  1.0
-	 *      
+	 *
 	 * @return \Psr\Http\Message\ResponseInterface
 	 */
 	public function update(Languagefile $languagefile, $branch = '')
 	{
 		$data = [];
 
-		if ('' !== $branch)
-		{
+		if ('' !== $branch) {
 			$data[] = [
 				'name'     => 'branch',
-				'contents' => $branch
+				'contents' => $branch,
 			];
 		}
 
@@ -88,9 +85,9 @@ Class File extends Package
 	/**
 	 * Delete file from Crowdin project. All the translations will be lost without ability to restore them.
 	 *
-	 * @param   string  $file  The file to delete.
+	 * @param   string $file The file to delete.
 	 *
-	 * @see https://crowdin.com/page/api/delete-file
+	 * @see    https://crowdin.com/page/api/delete-file
 	 * @since  1.0
 	 *
 	 * @return \Psr\Http\Message\ResponseInterface
@@ -105,9 +102,9 @@ Class File extends Package
 	 * This method exports single translated files from Crowdin.
 	 * Additionally, it can be applied to export XLIFF files for offline localization. (@todo)
 	 *
-	 * @param   string  $file      The file name.
-	 * @param   string  $language  The language tag.
-	 * @param   string  $toPath    Export to path.
+	 * @param   string $file     The file name.
+	 * @param   string $language The language tag.
+	 * @param   string $toPath   Export to path.
 	 *
 	 * @see    https://crowdin.com/page/api/export-file
 	 * @since  1.0
@@ -129,9 +126,9 @@ Class File extends Package
 
 	/**
 	 * Process a language file.
-	 * 
-	 * @param   array         $data          Data array.
-	 * @param   Languagefile  $languagefile  The language file object.
+	 *
+	 * @param   array        $data         Data array.
+	 * @param   Languagefile $languagefile The language file object.
 	 *
 	 * @return array
 	 */
@@ -139,24 +136,27 @@ Class File extends Package
 	{
 		$data[] = [
 			'name'     => 'files[' . $languagefile->getCrowdinPath() . ']',
-			'contents' => fopen($languagefile->getLocalPath(), 'r')
+			'contents' => fopen($languagefile->getLocalPath(), 'r'),
 		];
 
-		if ($languagefile->getTitle())
-		{
+		if ($languagefile->getTitle()) {
 			$data[] = [
 				'name'     => 'titles[' . $languagefile->getCrowdinPath() . ']',
-				'contents' => $languagefile->getTitle()
+				'contents' => $languagefile->getTitle(),
 			];
 		}
 
-		if ($languagefile->getExportPattern())
-		{
+		if ($languagefile->getExportPattern()) {
 			$data[] = [
 				'name'     => 'export_patterns[' . $languagefile->getCrowdinPath() . ']',
-				'contents' => $languagefile->getExportPattern()
+				'contents' => $languagefile->getExportPattern(),
 			];
 		}
+
+		$data[] = [
+			'name'     => 'scheme',
+			'contents' => 'identifier,source_or_translation',
+		];
 
 		return $data;
 	}
