@@ -1,5 +1,5 @@
 {
-    "name": "paxful/crowdin-api",
+    "name": "ahmarov/crowdin-api",
     "description": "A crowdin API implementation in PHP",
     "type": "library",
     "require": {
@@ -28,9 +28,5 @@
     "psr-4": {
       "Tests\\": "tests/"
     }
-  },
-  "source": {
-    "url": "git@bitbucket.org:paxful/crowdin-api.git",
-    "type": "git"
   }
 }
