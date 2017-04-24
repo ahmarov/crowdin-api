@@ -25,7 +25,7 @@ class FakeClient extends Client
 	 *
 	 * @return string
 	 */
-	public function get($uri, array $options = [])
+	public function get($uri = null, $options = [])
 	{
 		return (new FakeResponse)
 			->setBody(count($options) ? $uri . '&' . http_build_query($options) : $uri);
@@ -39,7 +39,7 @@ class FakeClient extends Client
 	 *
 	 * @return string
 	 */
-	public function post($uri, array $options = [])
+	public function post($uri = null, array $options = [])
 	{
 		return (new FakeResponse)
 			->setBody(count($options) ? $uri . '&' . http_build_query($options) : $uri);

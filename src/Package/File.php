@@ -28,7 +28,6 @@ Class File extends Package
 	 * @see    https://crowdin.com/page/api/add-file
 	 * @since  1.0
 	 *
-	 * @return \Psr\Http\Message\ResponseInterface
 	 */
 	public function add(Languagefile $languagefile, $type = '', $branch = '')
 	{
@@ -63,7 +62,6 @@ Class File extends Package
 	 * @see    https://crowdin.com/page/api/update-file
 	 * @since  1.0
 	 *
-	 * @return \Psr\Http\Message\ResponseInterface
 	 */
 	public function update(Languagefile $languagefile, $branch = '')
 	{
@@ -90,7 +88,6 @@ Class File extends Package
 	 * @see    https://crowdin.com/page/api/delete-file
 	 * @since  1.0
 	 *
-	 * @return \Psr\Http\Message\ResponseInterface
 	 */
 	public function delete($file)
 	{
@@ -109,7 +106,6 @@ Class File extends Package
 	 * @see    https://crowdin.com/page/api/export-file
 	 * @since  1.0
 	 *
-	 * @return \Psr\Http\Message\ResponseInterface
 	 */
 	public function export($file, $language, $toPath)
 	{
@@ -153,10 +149,12 @@ Class File extends Package
 			];
 		}
 
-		$data[] = [
-			'name'     => 'scheme',
-			'contents' => 'identifier,source_or_translation',
-		];
+		if ($languagefile->getSchema()) {
+			$data[] = [
+				'name'     => 'scheme',
+				'contents' => $languagefile->getSchema(),
+			];
+		}
 
 		return $data;
 	}

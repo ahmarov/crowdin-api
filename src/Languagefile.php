@@ -40,6 +40,11 @@ class Languagefile
 	protected $exportPattern;
 
 	/**
+	 * @var
+	 */
+	protected $schema;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param   string  $localPath    The path on the local file system.
@@ -74,6 +79,28 @@ class Languagefile
 	public function getCrowdinPath()
 	{
 		return $this->crowdinPath;
+	}
+
+	/**
+	 * Get the local path.
+	 *
+	 * @return string
+	 */
+	public function getSchema()
+	{
+		return $this->schema;
+	}
+
+	/**
+	 * @param $schema
+	 *
+	 * @return $this
+	 */
+	public function setSchema($schema)
+	{
+		$this->schema = $schema;
+
+		return $this;
 	}
 
 	/**

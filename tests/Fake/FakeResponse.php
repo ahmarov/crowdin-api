@@ -8,15 +8,13 @@
 
 namespace Tests\Fake;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\StreamInterface;
 
 /**
  * Class FakeResponse
  *
  * @since  1.1.2
  */
-class FakeResponse implements ResponseInterface
+class FakeResponse
 {
 	private $body;
 
